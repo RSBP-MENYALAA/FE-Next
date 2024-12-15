@@ -1,14 +1,10 @@
+import Header from "./_components/Header";
 import ImageInput from "./_components/ImageInput";
 
 export default function Page() {
 	return (
 		<>
-			<header className="flex justify-between fixed w-full p-4 px-6 bg-white shadow-xl items-center">
-				<h1 className="text-lg font-['Montserrat']">HUMAN VS AI</h1>
-				<button className="px-4 py-2 text-sm text-black hover:text-white bg-transparent hover:bg-[#FD6565] rounded-md">
-					Login
-				</button>
-			</header>
+			<Header />
 			<main className="w-full h-screen flex justify-center items-center">
 				<div className="flex flex-col gap-3 w-1/2">
 					<h2 className="text-lg font-bold">Choose your prediction :</h2>
