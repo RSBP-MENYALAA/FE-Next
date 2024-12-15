@@ -12,7 +12,7 @@ export default function SignUpUser() {
 	} = useMutation({
 		mutationFn: (data: SignUpForm) => {
 			const SignUpUser = data;
-			return main.post(`user`, SignUpUser);
+			return main.post(`users/register`, SignUpUser);
 		},
 		onError: (error: any) => toast.error(getErrorMessage(error)),
 		onSuccess: () => toast.success("Sukses Sign Up"),

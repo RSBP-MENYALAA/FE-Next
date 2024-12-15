@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import LoginUser from "@/api/User/loginuser";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
@@ -9,8 +8,7 @@ interface LoginUserForm {
 	password: string;
 }
 
-export default function Template() {
-	const router = useRouter();
+export default function Login() {
 	const methods = useForm<LoginUserForm>();
 	const { register, handleSubmit } = methods;
 	const { mutateUseLoginUser, response, isSuccess } = LoginUser();
@@ -32,12 +30,12 @@ export default function Template() {
 	};
 
 	if (isSuccess && response && response.status === 200) {
-		console.log(response);
-		console.log(response?.status);
-		const { accessToken } = response.data;
-		console.log(accessToken);
+		// console.log(response);
+		// console.log(response?.status);
+		// const { accessToken } = response.data;
+		// console.log(accessToken);
 
-		router.push("/home");
+		window.location.href = "/dashboard";
 	}
 
 	return (
@@ -105,20 +103,20 @@ export default function Template() {
 										type="submit"
 										className="mb-1.5 block w-full text-center text-white bg-purple-700 hover:bg-purple-900 px-2 py-1.5 rounded-md"
 									>
-										Sign in
+										Login
 									</button>
 								</div>
 							</form>
 						</FormProvider>
-						<div className="text-center">
+						<div className="text-center flex gap-2 justify-center items-center">
 							<span className="text-xs text-gray-400 font-semibold">
 								Don't have account?
 							</span>
 							<a
-								href="/sign-up"
+								href="/register"
 								className="text-xs font-semibold text-purple-700"
 							>
-								Sign up
+								Register
 							</a>
 						</div>
 					</div>

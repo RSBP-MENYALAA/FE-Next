@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import SignUpUser from "@/api/User/signup";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
@@ -7,13 +6,11 @@ import { useState } from "react";
 import { SignUp } from "@/types/SignUpForm";
 
 export default function Register() {
-	const router = useRouter();
 	const methods = useForm<SignUp>();
 	const { register, handleSubmit } = methods;
 	const { mutateSignUp, responseSignUp, isSuccess } = SignUpUser();
 	const onSubmit: SubmitHandler<SignUp> = async (datas) => {
 		try {
-			datas.language = "en";
 			console.log(datas);
 
 			await mutateSignUp(datas);
@@ -28,9 +25,12 @@ export default function Register() {
 		setShowPassword(!showPassword);
 	};
 
-	if (isSuccess && responseSignUp && responseSignUp.status === 200) {
-		router.push("/sign-in");
-	} else {
+	// console.log(isSuccess);
+	// console.log(responseSignUp);
+	// console.log(responseSignUp?.status);
+
+	if (isSuccess && responseSignUp && responseSignUp.status === 201) {
+		window.location.href = "/login";
 	}
 
 	return (
@@ -113,12 +113,12 @@ export default function Register() {
 										type="submit"
 										className="mb-1.5 block w-full text-center text-white bg-purple-700 hover:bg-purple-900 px-2 py-1.5 rounded-md"
 									>
-										Sign Up
+										Register
 									</button>
 								</div>
 							</form>
 						</FormProvider>
-						<div className="text-center">
+						<div className="flex flex-row gap-2 justify-center items-center">
 							<span className="text-xs text-gray-400 font-semibold">
 								Already have an account?
 							</span>
@@ -126,7 +126,7 @@ export default function Register() {
 								href="/sign-in"
 								className="text-xs font-semibold text-purple-700"
 							>
-								Sign In
+								Login
 							</a>
 						</div>
 					</div>

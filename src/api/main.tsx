@@ -4,7 +4,7 @@ import useUserStore from "@/store/userStore";
 export const baseURL = process.env.API_URL;
 
 const main = axios.create({
-	baseURL: "https://oprec-api.labse.in/api",
+	baseURL: "https://api.beteam1genics.my.id/api/",
 	headers: {
 		"Content-Type": "application/json",
 	},

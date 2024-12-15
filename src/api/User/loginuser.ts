@@ -1,4 +1,4 @@
-import { useMutation, MutationFunction } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import main from "../main";
 import { LoginUser as LoginUserType } from "@/types/LoginUserType";
 import { toast } from "react-toastify";
@@ -13,14 +13,14 @@ export default function LoginUser() {
 	} = useMutation({
 		mutationFn: (data: LoginUserType) => {
 			const loginUser = data;
-			return main.post(`user/login`, loginUser);
+			return main.post(`auth/login`, loginUser);
 		},
 		onError: (error: Error) => toast.error(getErrorMessage(error)),
 		onSuccess: () => toast.success("Sukses Login"),
 	});
 
-	if (response && response.data && response.data.accessToken) {
-		const { accessToken } = response.data;
+	if (response && response.data && response.data.data && response.data.data.accessToken) {
+		const { accessToken } = response.data.data;
 		useUserStore.getState().setAccessToken(accessToken);
 		localStorage.setItem("accessToken", accessToken);
 		console.log(useUserStore.getState().accessToken);
