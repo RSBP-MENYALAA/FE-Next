@@ -1,4 +1,4 @@
-import React from "react";
+import ImageInput from "./_components/ImageInput";
 
 export default function Page() {
 	return (
@@ -20,55 +20,7 @@ export default function Page() {
 							</p>
 						</div>
 						<div className="flex items-start w-full flex-col gap-4">
-							<form method="POST" className="w-full flex gap-4 flex-col">
-								<div
-									className="flex p-9 flex-col border border-dashed rounded-md border-black w-full gap-4 justify-center items-center drop-area"
-									id="drop-area"
-								>
-									<img
-										alt="upload"
-										className="hidden imagepreview"
-										id="imagepreview"
-									/>
-									<div className="w-full flex flex-col justify-center items-center gap-4 calonhidden">
-										<div className="flex flex-row gap-2 justify-center items-center">
-											<div className="rounded-full p-1 border border-black">
-												{/* //import svg from public/images/plus.svg */}
-												<img
-													src="images/uploadIcon.svg"
-													className="w-[30px]"
-													alt="plus"
-												/>
-											</div>
-											<p className="text-black text-lg text-center font-light">
-												Drag and drop
-											</p>
-										</div>
-
-										<h5 className="text-black text-base text-center font-medium">
-											Or
-										</h5>
-										<input
-											id="image-input"
-											name="image"
-											accept="image/*"
-											style={{ display: "none" }}
-											className="bg-[#69696944]"
-										/>
-										<button
-											id="button-upload"
-											className=" text-[#808080] py-3 px-5 flex justify-center items-center rounded-xl border-[#545977] border-2 w-[40%] hover:border-[#a0a7cc] hover:text-white"
-										>
-											Upload from computer
-										</button>
-									</div>
-								</div>
-								<div className="flex w-full justify-center items-center">
-									<button className="flex text-white justify-center items-center px-3 py-1 rounded-xl bg-[#FD6565] border border-[#212122] w-[50%] hover:bg-[#ffe9e9]">
-										Send
-									</button>
-								</div>
-							</form>
+							<ImageInput />
 						</div>
 					</div>
 				</div>
