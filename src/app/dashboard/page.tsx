@@ -24,7 +24,7 @@ export default function Page() {
 			<footer className="flex flex-row gap-4 fixed bottom-0 z-10 justify-center items-center w-full h-16 bg-white shadow-xl">
 				<p className="text-black text-sm">© 2021 Human VS AI</p>
 				<p>||</p>
-				<p>created for knowladge based engineering project </p>
+				<p>created for knowledge based engineering project </p>
 			</footer>
 		</>
 	);
