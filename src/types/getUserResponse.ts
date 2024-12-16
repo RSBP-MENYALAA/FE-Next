@@ -5,6 +5,6 @@ interface ResultMessage {
 export interface ResponseUser<Data> {
     resultMessage: ResultMessage;
     resultCode: string;
-    user: Data;
+    data: Data;
 }
 

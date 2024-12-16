@@ -1,7 +1,7 @@
 import Header from "./_components/Header";
 import ImageInput from "./_components/ImageInput";
 
-export default function Page() {
+export default function DashboardPage() {
 	return (
 		<>
 			<Header />

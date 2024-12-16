@@ -11,9 +11,9 @@ export default function getUser() {
         isLoading,
         error, status
     } = useQuery({
-        queryKey: ["/user"],
+        queryKey: ["/users/me"],
         queryFn: () => {
-            return main.get<ResponseUser<getUserType>>("/user");
+            return main.get<ResponseUser<getUserType>>("/users/me");
         },
         enabled: true,
     });
