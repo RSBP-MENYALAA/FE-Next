@@ -52,8 +52,8 @@ export default function DashboardPage() {
 									<p>
 										Predicted Class :{" "}
 										{responseTrain.data.prediction.predicted_class == 0
-											? "Human ('0')"
-											: "AI ('1')"}
+											? "AI ('0')"
+											: "Human ('1')"}
 									</p>
 									<p>
 										Probabilities :{" "}
