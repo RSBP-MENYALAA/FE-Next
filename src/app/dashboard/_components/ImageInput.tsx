@@ -3,10 +3,7 @@
 import React, { useState, useCallback } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
-
-interface FormValues {
-	image: File | null; // File tunggal
-}
+import { FormValues } from "@/types/ImageTrainType";
 
 const ImageInput: React.FC = () => {
 	const [preview, setPreview] = useState<string | null>(null); // Preview gambar
