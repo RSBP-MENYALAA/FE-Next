@@ -123,7 +123,7 @@ export default function Register() {
 								Already have an account?
 							</span>
 							<a
-								href="/sign-in"
+								href="/login"
 								className="text-xs font-semibold text-purple-700"
 							>
 								Login

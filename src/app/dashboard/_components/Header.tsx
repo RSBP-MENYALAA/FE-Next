@@ -89,7 +89,7 @@ export default function Header() {
 								</p>
 							</div>
 							<div className="menu-sidebar-kanan">
-								<Link href="/sign-in">
+								<Link href="/login">
 									<div
 										className="printilan-sidebar-kanan flex items-center justify-center cursor-pointer hover:bg-blue-200 rounded-md p-2 mt-2"
 										onClick={handleLogout}
