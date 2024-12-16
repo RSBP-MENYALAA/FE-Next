@@ -22,7 +22,7 @@ export default function Header() {
 	};
 
 	const handleLogout = () => {
-		localStorage.removeItem("accessToken");
+		if (typeof window !== "undefined") localStorage.removeItem("accessToken");
 		useUserStore.getState().setAccessToken("");
 		window.location.href = "/";
 	};

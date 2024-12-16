@@ -12,13 +12,15 @@ interface ImageInputProps {
 	setResponseTrainImage: React.Dispatch<
 		React.SetStateAction<ResponsePredict | undefined>
 	>;
+	isLogin?: boolean;
 }
 
-const ImageInput: React.FC<ImageInputProps> = ({ setResponseTrainImage }) => {
+const ImageInput: React.FC<ImageInputProps> = ({
+	setResponseTrainImage,
+	isLogin,
+}) => {
 	const [preview, setPreview] = useState<string | null>(null); // Preview gambar
 	const { control, handleSubmit } = useForm<FormValues>();
-	const hasAccessToken =
-		useUserStore.getState().accessToken || localStorage.getItem("accessToken");
 	const {
 		mutateUsePredictPublic,
 		responsePublicPredict,
@@ -54,7 +56,7 @@ const ImageInput: React.FC<ImageInputProps> = ({ setResponseTrainImage }) => {
 		console.log(formData.get("image"));
 		// Upload the image using fetch API
 		// console.log(formData);
-		hasAccessToken
+		isLogin
 			? await mutateUsePredictTuned(formData)
 			: await mutateUsePredictPublic(formData);
 	};
@@ -63,7 +65,7 @@ const ImageInput: React.FC<ImageInputProps> = ({ setResponseTrainImage }) => {
 	useEffect(() => {
 		// Cek apakah user tidak memiliki token akses
 
-		if (!hasAccessToken) {
+		if (!isLogin) {
 			// Jika public prediction sukses, set response train image
 			if (isSuccessPublicPredict && responsePublicPredict) {
 				setResponseTrainImage(responsePublicPredict.data);
