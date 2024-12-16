@@ -3,6 +3,7 @@ import main from "../main";
 import { LoginUser as LoginUserType } from "@/types/LoginUserType";
 import { toast } from "react-toastify";
 import useUserStore from "@/store/userStore";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function LoginUser() {
