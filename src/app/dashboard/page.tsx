@@ -17,13 +17,13 @@ export default function DashboardPage() {
 					<div className="flex flex-col gap-2 w-full">
 						<div className="flex flex-row justify-between w-full">
 							<p>
-								{!useUserStore.getState().accessToken &&
+								{!useUserStore.getState().accessToken ||
 								!localStorage.getItem("accessToken")
 									? "Basic"
 									: "Advanced"}
 							</p>
 							<p className="text-black/50">
-								{!useUserStore.getState().accessToken &&
+								{!useUserStore.getState().accessToken ||
 								!localStorage.getItem("accessToken")
 									? "*for tuned prediction please login"
 									: "*for more accurate prediction"}
