@@ -2,23 +2,21 @@ import { useMutation } from "@tanstack/react-query";
 import main from "../main";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { FormValues } from "@/types/ImageTrainType";
 
 
 export default function PredictTuned() {
     const {
         mutate: mutateUsePredictTuned,
-        data: responsePublicPredict,
-        isSuccess: isSuccessPublicPredict,
+        data: responsePredictTuned,
+        isSuccess: isSuccessPredictTuned,
     } = useMutation({
-        mutationFn: (data: FormValues) => {
-            const PredictTuned = data;
-            return main.post(`predict-tuned`, PredictTuned);
+        mutationFn: (data: any) => {
+            return main.post(`predict-tuned`, data);
         },
         onError: (error: Error) => toast.error(getErrorMessage(error)),
         onSuccess: () => toast.success("Sukses Predict Tuned Model"),
     });
-    return { mutateUsePredictTuned, responsePublicPredict, isSuccessPublicPredict };
+    return { mutateUsePredictTuned, responsePredictTuned, isSuccessPredictTuned };
 }
 
 

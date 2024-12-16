@@ -3,9 +3,11 @@ import { useState } from "react";
 import Header from "./_components/Header";
 import ImageInput from "./_components/ImageInput";
 import { ResponsePredict } from "@/types/ImageTrainType";
+import useUserStore from "@/store/userStore";
 
 export default function DashboardPage() {
 	const [responseTrain, setResponseTrain] = useState<ResponsePredict>();
+
 	return (
 		<>
 			<Header />
@@ -14,11 +16,20 @@ export default function DashboardPage() {
 					<h2 className="text-lg font-bold">Choose your prediction :</h2>
 					<div className="flex flex-col gap-2 w-full">
 						<div className="flex flex-row justify-between w-full">
-							<p>Basic</p>
+							<p>
+								{!useUserStore.getState().accessToken &&
+								!localStorage.getItem("accessToken")
+									? "Basic"
+									: "Advanced"}
+							</p>
 							<p className="text-black/50">
-								*for tuned prediction please login
+								{!useUserStore.getState().accessToken &&
+								!localStorage.getItem("accessToken")
+									? "*for tuned prediction please login"
+									: "*for more accurate prediction"}
 							</p>
 						</div>
+
 						<div className="flex items-start w-full flex-col gap-4">
 							<ImageInput setResponseTrainImage={setResponseTrain} />
 						</div>

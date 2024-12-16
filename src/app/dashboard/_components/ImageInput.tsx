@@ -5,6 +5,8 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 import { FormValues, ResponsePredict } from "@/types/ImageTrainType";
 import PredictPublic from "@/api/Predict/predictPublic";
+import PredictTuned from "@/api/Predict/predictTune";
+import useUserStore from "@/store/userStore";
 
 interface ImageInputProps {
 	setResponseTrainImage: React.Dispatch<
@@ -15,13 +17,15 @@ interface ImageInputProps {
 const ImageInput: React.FC<ImageInputProps> = ({ setResponseTrainImage }) => {
 	const [preview, setPreview] = useState<string | null>(null); // Preview gambar
 	const { control, handleSubmit } = useForm<FormValues>();
-
+	const hasAccessToken =
+		useUserStore.getState().accessToken || localStorage.getItem("accessToken");
 	const {
 		mutateUsePredictPublic,
 		responsePublicPredict,
 		isSuccessPublicPredict,
 	} = PredictPublic();
-
+	const { mutateUsePredictTuned, responsePredictTuned, isSuccessPredictTuned } =
+		PredictTuned();
 	// Fungsi onDrop untuk Dropzone
 	const onDrop = useCallback((acceptedFiles: File[]) => {
 		if (acceptedFiles.length > 0) {
@@ -50,15 +54,33 @@ const ImageInput: React.FC<ImageInputProps> = ({ setResponseTrainImage }) => {
 		console.log(formData.get("image"));
 		// Upload the image using fetch API
 		// console.log(formData);
-		await mutateUsePredictPublic(formData);
+		hasAccessToken
+			? await mutateUsePredictTuned(formData)
+			: await mutateUsePredictPublic(formData);
 	};
 
 	// Effect to update responseTrain when prediction is successful
 	useEffect(() => {
-		if (isSuccessPublicPredict && responsePublicPredict) {
-			setResponseTrainImage(responsePublicPredict.data);
+		// Cek apakah user tidak memiliki token akses
+
+		if (!hasAccessToken) {
+			// Jika public prediction sukses, set response train image
+			if (isSuccessPublicPredict && responsePublicPredict) {
+				setResponseTrainImage(responsePublicPredict.data);
+			}
+		} else {
+			// Jika tuned prediction sukses, set response train image
+			if (isSuccessPredictTuned && responsePredictTuned) {
+				setResponseTrainImage(responsePredictTuned.data);
+			}
 		}
-	}, [isSuccessPublicPredict, responsePublicPredict, setResponseTrainImage]);
+	}, [
+		isSuccessPublicPredict,
+		responsePublicPredict,
+		isSuccessPredictTuned,
+		responsePredictTuned,
+		setResponseTrainImage,
+	]);
 
 	//const change image untuk menghapus preview di button
 	const changeImage = () => {
