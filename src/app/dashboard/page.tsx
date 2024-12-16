@@ -1,7 +1,11 @@
+"use client";
+import { useState } from "react";
 import Header from "./_components/Header";
 import ImageInput from "./_components/ImageInput";
+import { ResponsePredict } from "@/types/ImageTrainType";
 
 export default function DashboardPage() {
+	const [responseTrain, setResponseTrain] = useState<ResponsePredict>();
 	return (
 		<>
 			<Header />
@@ -16,8 +20,32 @@ export default function DashboardPage() {
 							</p>
 						</div>
 						<div className="flex items-start w-full flex-col gap-4">
-							<ImageInput />
+							<ImageInput setResponseTrainImage={setResponseTrain} />
 						</div>
+					</div>
+					<div className="w-full flex flex-col gap-4 justify-center items-center mt-5">
+						{responseTrain ? (
+							<>
+								<h1 className="text-lg font-bold">Prediction Result</h1>
+								<div className="flex flex-col gap-2">
+									<p>Confidence : {responseTrain.data.prediction.confidence}</p>
+									<p>Label : {responseTrain.data.prediction.label}</p>
+									<p>
+										Predicted Class :{" "}
+										{responseTrain.data.prediction.predicted_class == 0
+											? "Human ('0')"
+											: "AI ('1')"}
+									</p>
+									<p>
+										Probabilities :{" "}
+										{responseTrain.data.prediction.probabilities}
+									</p>
+									<p>Image Path : {responseTrain.data.prediction.imagePath}</p>
+								</div>
+							</>
+						) : (
+							<p>Upload and send the image to see the result</p>
+						)}
 					</div>
 				</div>
 			</main>

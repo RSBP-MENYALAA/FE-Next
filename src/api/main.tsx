@@ -5,9 +5,6 @@ export const baseURL = process.env.API_URL;
 
 const main = axios.create({
 	baseURL: "https://api.beteam1genics.my.id/api/",
-	headers: {
-		"Content-Type": "application/json",
-	},
 	withCredentials: false,
 });
 

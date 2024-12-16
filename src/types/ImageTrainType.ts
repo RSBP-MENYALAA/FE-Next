@@ -14,7 +14,7 @@ export interface ResponsePredict {
 	data: {
 		prediction: {
 			confidence: number;
-			imagepath: string;
+			imagePath: string;
 			label: string;
 			predicted_class: number;
 			probabilities: [

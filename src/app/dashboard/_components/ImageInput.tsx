@@ -1,13 +1,26 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
-import { FormValues } from "@/types/ImageTrainType";
+import { FormValues, ResponsePredict } from "@/types/ImageTrainType";
+import PredictPublic from "@/api/Predict/predictPublic";
 
-const ImageInput: React.FC = () => {
+interface ImageInputProps {
+	setResponseTrainImage: React.Dispatch<
+		React.SetStateAction<ResponsePredict | undefined>
+	>;
+}
+
+const ImageInput: React.FC<ImageInputProps> = ({ setResponseTrainImage }) => {
 	const [preview, setPreview] = useState<string | null>(null); // Preview gambar
 	const { control, handleSubmit } = useForm<FormValues>();
+
+	const {
+		mutateUsePredictPublic,
+		responsePublicPredict,
+		isSuccessPublicPredict,
+	} = PredictPublic();
 
 	// Fungsi onDrop untuk Dropzone
 	const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -32,33 +45,20 @@ const ImageInput: React.FC = () => {
 			return;
 		}
 
-		const formData = new FormData();
+		const formData: any = new FormData();
 		formData.append("image", data.image);
 		console.log(formData.get("image"));
 		// Upload the image using fetch API
-		try {
-			const result = await fetch(
-				"https://api.beteam1genics.my.id/api/predict",
-				{
-					method: "POST",
-					body: formData,
-				}
-			);
-
-			// Check response status
-			if (result.ok) {
-				const res = await result.json();
-				console.log(res);
-				alert("Image uploaded successfully!");
-			} else {
-				console.log(result);
-				alert("Upload failed!");
-			}
-		} catch (error) {
-			console.error("Error:", error);
-			alert("An error occurred while uploading.");
-		}
+		// console.log(formData);
+		await mutateUsePredictPublic(formData);
 	};
+
+	// Effect to update responseTrain when prediction is successful
+	useEffect(() => {
+		if (isSuccessPublicPredict && responsePublicPredict) {
+			setResponseTrainImage(responsePublicPredict.data);
+		}
+	}, [isSuccessPublicPredict, responsePublicPredict, setResponseTrainImage]);
 
 	//const change image untuk menghapus preview di button
 	const changeImage = () => {

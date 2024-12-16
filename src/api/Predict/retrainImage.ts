@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import main from "../main";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { ImageRetrainType } from "@/types/ImageTrainType";
 
 

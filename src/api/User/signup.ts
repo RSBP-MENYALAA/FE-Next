@@ -2,6 +2,7 @@ import { useMutation, MutationFunction } from "@tanstack/react-query";
 import main from "../main";
 import { SignUp as SignUpForm } from "@/types/SignUpForm";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUpUser() {
 	const {

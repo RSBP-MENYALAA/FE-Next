@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import main from "../main";
 import { toast } from "react-toastify";
-import { FormValues } from "@/types/ImageTrainType";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function PredictPublic() {
@@ -10,13 +10,13 @@ export default function PredictPublic() {
         data: responsePublicPredict,
         isSuccess: isSuccessPublicPredict,
     } = useMutation({
-        mutationFn: (data: FormValues) => {
-            const PredictPublic = data;
-            return main.post(`predict`, PredictPublic);
+        mutationFn: (data: any) => {
+            return main.post(`predict`, data);
         },
         onError: (error: Error) => toast.error(getErrorMessage(error)),
         onSuccess: () => toast.success("Sukses Predict Public Model"),
     });
+
     return { mutateUsePredictPublic, responsePublicPredict, isSuccessPublicPredict };
 }
 
